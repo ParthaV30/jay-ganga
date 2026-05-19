@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Lock, User } from 'lucide-react'
+import { Lock, User, Eye, EyeOff } from 'lucide-react'
 
 export default function AdminLoginPage() {
   const router = useRouter()
@@ -10,6 +10,7 @@ export default function AdminLoginPage() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -65,13 +66,22 @@ export default function AdminLoginPage() {
               <Lock size={15} className="login-input-icon" />
               <input
                 id="admin-pass"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 className="form-input login-input"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 placeholder="••••••••"
                 autoComplete="current-password"
+                style={{ paddingRight: '2.5rem' }}
               />
+              <button
+                type="button"
+                className="login-toggle-password"
+                onClick={() => setShowPassword(p => !p)}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
+              </button>
             </div>
           </div>
           <button type="submit" className="btn btn-dark login-btn" disabled={loading}>
@@ -118,7 +128,6 @@ export default function AdminLoginPage() {
           font-size: 0.85rem; color: #c0392b;
           margin-bottom: 1.25rem;
         }
-        .login-form { display: flex; flex-direction: column; gap: 1.25rem; }
         .login-input-wrap { position: relative; }
         :global(.login-input-icon) {
           position: absolute; left: 1rem; top: 50%;
@@ -126,6 +135,16 @@ export default function AdminLoginPage() {
           color: var(--color-text-secondary);
         }
         .login-input { padding-left: 2.5rem; }
+        .login-toggle-password {
+          position: absolute; right: 1rem; top: 50%;
+          transform: translateY(-50%);
+          background: none; border: none;
+          color: var(--color-text-secondary);
+          cursor: pointer; display: flex; align-items: center; justify-content: center;
+          padding: 0;
+          transition: color 0.15s ease;
+        }
+        .login-toggle-password:hover { color: var(--color-text); }
         .login-btn { width: 100%; justify-content: center; margin-top: 0.5rem; }
       `}</style>
     </div>
