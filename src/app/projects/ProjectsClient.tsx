@@ -61,7 +61,7 @@ function Lightbox({
       <button className="lightbox__nav lightbox__nav--next" onClick={onNext} aria-label="Next"><ChevronRight size={28} /></button>
       <div className="lightbox__content">
         {item.media_type === 'video' ? (
-          <video controls autoPlay className="lightbox__video" src={item.cloudinary_url} />
+          <video controls autoPlay playsInline preload="metadata" className="lightbox__video" src={item.cloudinary_url} />
         ) : (
           <div className="lightbox__img-wrap">
             <Image src={item.cloudinary_url} alt={item.title} fill sizes="90vw" className="lightbox__img" />

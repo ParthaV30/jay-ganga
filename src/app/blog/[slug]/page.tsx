@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import CommentForm from './CommentForm'
-import { ArrowLeft, Calendar, User, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Calendar, User, ChevronLeft, ChevronRight } from 'lucide-react'
 import type { BlogComment } from '@/lib/supabase'
 
 export const revalidate = 0

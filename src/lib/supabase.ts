@@ -7,16 +7,27 @@ const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || 'your_servic
 const isPlaceholder = supabaseUrl.includes('your_supabase_url_here')
 
 // Helper to create a chainable mock that won't throw errors
-let localGalleryDB = Array.from({ length: 7 }).map((_, i) => ({
+const mockMediaList = [
+  { url: '/images/gallery_1.jpg', cat: 'Exhibition' as const, title: 'Exhibition Stall Design 1' },
+  { url: '/images/gallery_2.jpg', cat: 'Exhibition' as const, title: 'Exhibition Stall Design 2' },
+  { url: '/images/gallery_3.jpg', cat: 'Exhibition' as const, title: 'Exhibition Stall Design 3' },
+  { url: '/images/gallery_4.jpg', cat: 'Exhibition' as const, title: 'Exhibition Stall Design 4' },
+  { url: '/images/stall 1.png', cat: 'Exhibition' as const, title: 'Custom Stall Fabrication 1' },
+  { url: '/images/stall 2.png', cat: 'Exhibition' as const, title: 'Custom Stall Fabrication 2' },
+  { url: '/images/arc 1.jpg', cat: 'Architecture' as const, title: 'Modern Architecture Design 1' },
+  { url: '/images/arc 2.jpeg', cat: 'Architecture' as const, title: 'Modern Architecture Design 2' },
+]
+
+let localGalleryDB = mockMediaList.map((item, i) => ({
   id: `mock-img-${i + 1}`,
-  cloudinary_url: `/images/gallery_${i + 1}.jpg`,
-  cloudinary_public_id: `gallery_${i + 1}`,
+  cloudinary_url: item.url,
+  cloudinary_public_id: `mock_asset_${i + 1}`,
   thumbnail_url: null,
-  title: i >= 4 ? `Architecture Project ${i + 1 - 4}` : `Stall Fabrication Project ${i + 1}`,
-  category: i >= 4 ? 'Architecture' : 'Exhibition',
-  media_type: 'photo',
-  year: '2024',
-  created_at: new Date().toISOString(),
+  title: item.title,
+  category: item.cat,
+  media_type: 'photo' as const,
+  year: '2025',
+  created_at: new Date(Date.now() - i * 24 * 60 * 60 * 1000).toISOString(),
 }))
 
 const createMockClient = () => {

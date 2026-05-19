@@ -12,8 +12,7 @@ import {
   LogOut, 
   ExternalLink,
   Menu,
-  X,
-  ChevronLeft
+  X
 } from 'lucide-react'
 
 const navItems = [

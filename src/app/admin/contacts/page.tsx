@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, Fragment } from 'react'
-import { Mail, Phone, Calendar, ChevronRight, ChevronDown, Trash2 } from 'lucide-react'
+import { ChevronRight, ChevronDown, Trash2 } from 'lucide-react'
 import { showToast } from '@/components/Toast'
 
 import { ConfirmModal } from '@/components/ConfirmModal'
@@ -81,6 +81,10 @@ export default function AdminContactsPage() {
             <tbody>
               {contacts.map(c => {
                 const isExpanded = expandedId === c.id
+                const subjectMatch = c.message.match(/^\[([\s\S]*?)\]\s*([\s\S]*)/)
+                const parsedSubject = subjectMatch ? subjectMatch[1] : (c.subject || 'General Enquiry')
+                const cleanMessage = subjectMatch ? subjectMatch[2] : c.message
+
                 return (
                   <Fragment key={c.id}>
                     <tr 
@@ -99,12 +103,12 @@ export default function AdminContactsPage() {
                       </td>
                       <td>
                         <small className="badge badge--gray" style={{ background: 'rgba(0,0,0,0.05)', color: 'var(--color-text-secondary)', fontSize: '0.65rem' }}>
-                           {c.subject || 'General Enquiry'}
+                           {parsedSubject}
                         </small>
                       </td>
                       <td className="text-truncate" style={{ maxWidth: 200 }}>
                         <span style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)' }}>
-                          {c.message.slice(0, 50)}...
+                          {cleanMessage.slice(0, 50)}...
                         </span>
                       </td>
                       <td style={{ whiteSpace: 'nowrap' }}>
@@ -132,12 +136,12 @@ export default function AdminContactsPage() {
                               </div>
                               <div className="admin-detail-item">
                                 <span className="admin-detail-label">Subject</span>
-                                <span className="admin-detail-value">{c.subject || 'General Enquiry'}</span>
+                                <span className="admin-detail-value">{parsedSubject}</span>
                               </div>
                             </div>
                             <div className="admin-detail-card__heading" style={{ marginTop: '1.5rem' }}>Full Message Body</div>
                             <div className="admin-detail-card__body">
-                              {c.message}
+                              {cleanMessage}
                             </div>
                             <div className="admin-detail-card__meta">
                                Received via Website Contact Form on {new Date(c.created_at).toLocaleString('en-IN')}
