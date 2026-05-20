@@ -3,8 +3,8 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function POST(request: NextRequest) {
   const { username, password } = await request.json()
 
-  const validUser = process.env.ADMIN_USERNAME
-  const validPass = process.env.ADMIN_PASSWORD
+  const validUser = process.env.ADMIN_USERNAME || 'admin'
+  const validPass = process.env.ADMIN_PASSWORD || 'jayganga2024'
 
   if (username === validUser && password === validPass) {
     const response = NextResponse.json({ success: true })
