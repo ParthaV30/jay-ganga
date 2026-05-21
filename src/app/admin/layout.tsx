@@ -37,11 +37,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     setIsMobileMenuOpen(false)
   }, [pathname])
 
-  const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/')
+  const isActive = (href: string) => pathname === href || pathname?.startsWith(href + '/')
 
   // Dynamic Filtering: If we are in one of the 4 sections, show the other 3.
   // If we are on the Root Dashboard, show all 4.
-  const filteredNavItems = pathname === '/admin' 
+  const filteredNavItems = !pathname || pathname === '/admin' 
     ? navItems 
     : navItems.filter(item => !isActive(item.href))
 

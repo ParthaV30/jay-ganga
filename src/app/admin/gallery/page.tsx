@@ -34,13 +34,16 @@ export default function AdminGalleryPage() {
   const [confirmId, setConfirmId] = useState<string | null>(null)
   const [confirmTitle, setConfirmTitle] = useState('')
 
-  const photos = items.filter(i => i.media_type === 'photo').length
-  const videos = items.filter(i => i.media_type === 'video').length
+  const photos = (items || []).filter(i => i.media_type === 'photo').length
+  const videos = (items || []).filter(i => i.media_type === 'video').length
 
   async function load() {
     setLoading(true)
     const res = await fetch('/api/admin/gallery')
-    if (res.ok) setItems(await res.json())
+    if (res.ok) {
+      const data = await res.json()
+      setItems(Array.isArray(data) ? data : [])
+    }
     setLoading(false)
   }
 
@@ -171,9 +174,9 @@ export default function AdminGalleryPage() {
       <div className="gallery-admin-grid">
         {loading
           ? <p style={{ color: 'var(--color-text-secondary)' }}>Loading gallery…</p>
-          : items.length === 0
+          : (items || []).length === 0
             ? <p style={{ color: 'var(--color-text-secondary)' }}>No items yet. Upload your first photo or video above.</p>
-            : items.map(item => {
+            : (items || []).map(item => {
               const thumb = item.media_type === 'video'
                 ? (item.thumbnail_url || item.cloudinary_url.replace(/\.[^.]+$/, '.jpg').replace('/upload/', '/upload/so_0/'))
                 : item.cloudinary_url

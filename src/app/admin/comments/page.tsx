@@ -24,7 +24,10 @@ export default function AdminCommentsPage() {
   async function load() {
     setLoading(true)
     const res = await fetch('/api/admin/comments-list')
-    if (res.ok) setComments(await res.json())
+    if (res.ok) {
+      const data = await res.json()
+      setComments(Array.isArray(data) ? data : [])
+    }
     setLoading(false)
   }
 
@@ -56,11 +59,12 @@ export default function AdminCommentsPage() {
 
   const toggleExpand = (id: string) => setExpandedId(expandedId === id ? null : id)
 
+  const safeComments = comments || []
   const displayed = filter === 'Pending'
-    ? comments.filter(c => !c.approved)
+    ? safeComments.filter(c => !c.approved)
     : filter === 'Approved'
-      ? comments.filter(c => c.approved)
-      : comments
+      ? safeComments.filter(c => c.approved)
+      : safeComments
 
   return (
     <>
@@ -74,7 +78,7 @@ export default function AdminCommentsPage() {
       <div className="admin-page-header">
         <h1 className="admin-page-title">Comments</h1>
         <p className="admin-page-sub">
-          {comments.filter(c => !c.approved).length} pending · {comments.filter(c => c.approved).length} approved
+          {(comments || []).filter(c => !c.approved).length} pending · {(comments || []).filter(c => c.approved).length} approved
         </p>
       </div>
 
@@ -134,7 +138,7 @@ export default function AdminCommentsPage() {
                         </span>
                       </td>
                       <td style={{ whiteSpace: 'nowrap' }}>
-                        <small>{new Date(c.created_at).toLocaleDateString('en-IN')}</small>
+                        <small>{c.created_at ? new Date(c.created_at).toLocaleDateString('en-IN') : 'N/A'}</small>
                       </td>
                       <td>
                         <span className={`badge ${c.approved ? 'badge--green' : 'badge--orange'}`}>
@@ -162,7 +166,7 @@ export default function AdminCommentsPage() {
                               {c.comment}
                             </div>
                             <div className="admin-detail-card__meta">
-                              Sent on {new Date(c.created_at).toLocaleString('en-IN')}
+                              Sent {c.created_at ? 'on ' + new Date(c.created_at).toLocaleString('en-IN') : ''}
                             </div>
                           </div>
                         </td>

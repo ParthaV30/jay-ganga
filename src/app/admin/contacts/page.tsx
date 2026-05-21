@@ -24,7 +24,10 @@ export default function AdminContactsPage() {
 
   async function load() {
     const res = await fetch('/api/admin/contacts-list')
-    if (res.ok) setContacts(await res.json())
+    if (res.ok) {
+      const data = await res.json()
+      setContacts(Array.isArray(data) ? data : [])
+    }
     setLoading(false)
   }
 
@@ -58,13 +61,13 @@ export default function AdminContactsPage() {
       )}
       <div className="admin-page-header">
         <h1 className="admin-page-title">Contact Submissions</h1>
-        <p className="admin-page-sub">{contacts.length} submissions total</p>
+        <p className="admin-page-sub">{(contacts || []).length} submissions total</p>
       </div>
 
       <div className="admin-table-wrap">
         {loading ? (
           <div className="admin-loading">Loading submissions…</div>
-        ) : contacts.length === 0 ? (
+        ) : (contacts || []).length === 0 ? (
           <div className="admin-empty">No contact submissions yet.</div>
         ) : (
           <table className="admin-table admin-table--expandable">
@@ -79,7 +82,7 @@ export default function AdminContactsPage() {
               </tr>
             </thead>
             <tbody>
-              {contacts.map(c => {
+              {(contacts || []).map(c => {
                 const isExpanded = expandedId === c.id
                 const subjectMatch = c.message.match(/^\[([\s\S]*?)\]\s*([\s\S]*)/)
                 const parsedSubject = subjectMatch ? subjectMatch[1] : (c.subject || 'General Enquiry')
@@ -112,7 +115,7 @@ export default function AdminContactsPage() {
                         </span>
                       </td>
                       <td style={{ whiteSpace: 'nowrap' }}>
-                        <small>{new Date(c.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</small>
+                        <small>{c.created_at ? new Date(c.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : 'N/A'}</small>
                       </td>
                       <td className="admin-table__actions" style={{ justifyContent: 'flex-end' }}>
                         <button className="action-btn action-btn--delete" onClick={(e) => { e.stopPropagation(); setConfirmId(c.id); }} title="Delete">
@@ -144,7 +147,7 @@ export default function AdminContactsPage() {
                               {cleanMessage}
                             </div>
                             <div className="admin-detail-card__meta">
-                               Received via Website Contact Form on {new Date(c.created_at).toLocaleString('en-IN')}
+                               Received via Website Contact Form {c.created_at ? 'on ' + new Date(c.created_at).toLocaleString('en-IN') : ''}
                             </div>
                           </div>
                         </td>

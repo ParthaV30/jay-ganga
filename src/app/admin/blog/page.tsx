@@ -16,7 +16,10 @@ export default function AdminBlogPage() {
   async function load() {
     setLoading(true)
     const res = await fetch('/api/admin/blog')
-    if (res.ok) setPosts(await res.json())
+    if (res.ok) {
+      const data = await res.json()
+      setPosts(Array.isArray(data) ? data : [])
+    }
     setLoading(false)
   }
 
@@ -63,7 +66,7 @@ export default function AdminBlogPage() {
       <div className="admin-page-header">
         <div>
           <h1 className="admin-page-title">Blog Management</h1>
-          <p className="admin-page-sub">{posts.length} posts total</p>
+          <p className="admin-page-sub">{(posts || []).length} posts total</p>
         </div>
         <Link href="/admin/blog/new" className="btn btn-dark">
           <Plus size={15} /> New Post
@@ -73,7 +76,7 @@ export default function AdminBlogPage() {
       <div className="admin-table-wrap">
         {loading ? (
           <div className="admin-loading">Loading posts…</div>
-        ) : posts.length === 0 ? (
+        ) : (posts || []).length === 0 ? (
           <div className="admin-empty">
             <p>No posts yet.</p>
             <Link href="/admin/blog/new" className="btn btn-ghost">Create your first post →</Link>
@@ -90,7 +93,7 @@ export default function AdminBlogPage() {
               </tr>
             </thead>
             <tbody>
-              {posts.map(post => (
+              {(posts || []).map(post => (
                 <tr key={post.id}>
                   <td><strong>{post.title}</strong></td>
                   <td>{post.author}</td>
@@ -99,7 +102,7 @@ export default function AdminBlogPage() {
                       {post.published ? 'Published' : 'Draft'}
                     </span>
                   </td>
-                  <td>{new Date(post.created_at).toLocaleDateString('en-IN')}</td>
+                  <td>{post.created_at ? new Date(post.created_at).toLocaleDateString('en-IN') : 'N/A'}</td>
                   <td className="admin-table__actions">
                     <button
                       onClick={() => togglePublished(post)}
