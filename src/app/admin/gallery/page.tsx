@@ -106,7 +106,12 @@ export default function AdminGalleryPage() {
       <div className="admin-form" style={{ marginBottom: '2.5rem' }}>
         <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.2rem', fontWeight: 300, marginBottom: '1.25rem' }}>Upload New Media</h2>
         <div style={{ padding: '2rem', background: 'var(--color-bg)', border: '1px solid var(--color-border)', display: 'flex', justifyContent: 'center' }}>
-          {(process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME && process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY) ? (
+          {(
+            process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME && 
+            process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY &&
+            !process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME.includes('your_') &&
+            !process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY.includes('your_')
+          ) ? (
             <CldUploadWidget
             signatureEndpoint="/api/sign-cloudinary-params"
             onSuccess={(result) => {

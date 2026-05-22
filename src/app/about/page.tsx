@@ -60,7 +60,7 @@ export default function AboutPage() {
             Transforming spaces with minimalist precision.
           </h1>
           <p className="about-hero__body">
-            Jay Ganga Associates has been transforming exhibition experiences with photorealistic design and 
+            Jay <span style={{ color: 'var(--color-accent)' }}>Ganga</span> Associates has been transforming exhibition experiences with photorealistic design and 
             quality fabrication since its inception. Founded in Coimbatore, we have grown rapidly into 
             a trusted turnkey solution provider — scaling from 6 stalls in 2023 to over 40 bespoke projects in 2025.
           </p>
@@ -79,7 +79,7 @@ export default function AboutPage() {
       <section className="values-section">
         <div className="container">
           <p className="section-label">What We Stand For</p>
-          <h2 className="section-title" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', marginBottom: '4rem' }}>
+          <h2 className="section-title" style={{ fontSize: 'clamp(2.25rem, 4.5vw, 3.375rem)', marginBottom: '4rem' }}>
             Our Core Values
           </h2>
         </div>
@@ -101,7 +101,7 @@ export default function AboutPage() {
       <section className="team-section">
         <div className="container">
           <p className="section-label">The People</p>
-          <h2 className="section-title" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', marginBottom: '3.5rem' }}>
+          <h2 className="section-title" style={{ fontSize: 'clamp(2.25rem, 4.5vw, 3.375rem)', marginBottom: '3.5rem' }}>
             Our Team
           </h2>
           <div className="team-grid">

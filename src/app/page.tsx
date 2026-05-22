@@ -109,7 +109,7 @@ export default function HomePage() {
           <div className="hero__content">
             <p className="hero__eyebrow">Exhibition Stall Fabricators in Coimbatore</p>
             <h1 className="hero__title">
-              Jay Ganga<br />
+              Jay <span style={{ color: 'var(--color-accent)' }}>Ganga</span><br />
               <em>Associates</em>
             </h1>
             <div className="hero__line" aria-hidden />
@@ -137,8 +137,8 @@ export default function HomePage() {
             ].map(s => (
               <div className="service-card" key={s.title}>
                 <span className="service-card__icon">{s.icon}</span>
-                <h3 className="service-card__title">{s.title}</h3>
-                <p className="service-card__desc">{s.desc}</p>
+                <h3 className="service-card__title" style={{ color: 'var(--color-accent)', fontSize: '1.9rem' }}>{s.title}</h3>
+                <p className="service-card__desc" style={{ fontSize: '1.25rem' }}>{s.desc}</p>
                 <div className="service-card__line" aria-hidden />
               </div>
             ))}
@@ -164,7 +164,7 @@ export default function HomePage() {
           <div className="featured-section__head">
             <div>
               <p className="section-label">Portfolio</p>
-              <h2 className="section-title" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>Featured Work</h2>
+              <h2 className="section-title" style={{ fontSize: 'clamp(2.25rem, 4.5vw, 3.375rem)' }}>Featured Work</h2>
             </div>
             <Link href="/projects" className="btn btn-ghost">All Projects <ArrowRight size={13} /></Link>
           </div>
@@ -184,7 +184,7 @@ export default function HomePage() {
         <div className="container">
           <div className="why-section__head">
             <p className="section-label">Why Us</p>
-            <h2 className="section-title" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>The Jay Ganga Difference</h2>
+            <h2 className="section-title" style={{ fontSize: 'clamp(2.25rem, 4.5vw, 3.375rem)' }}>The Jay <span style={{ color: 'var(--color-accent)' }}>Ganga</span> Difference</h2>
           </div>
           <div className="why-grid">
             {[

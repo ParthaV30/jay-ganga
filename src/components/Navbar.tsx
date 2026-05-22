@@ -45,8 +45,7 @@ export default function Navbar() {
       <nav className={`navbar ${scrolled ? 'navbar--solid' : ''}`}>
         <div className="navbar__inner container">
           <Link href="/" className="navbar__logo">
-            <span className="navbar__logo-main">JAY GANGA</span>
-            <span className="navbar__logo-sub">Associates</span>
+            <span className="navbar__logo-main">JAY <span style={{ color: 'var(--color-accent)' }}>GANGA</span></span>
           </Link>
 
           {/* Desktop nav */}

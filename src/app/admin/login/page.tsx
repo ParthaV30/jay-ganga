@@ -40,8 +40,7 @@ export default function AdminLoginPage() {
     <div className="login-page">
       <div className="login-card">
         <div className="login-logo">
-          <span className="login-logo-main">JAY GANGA</span>
-          <span className="login-logo-sub">Associates · Admin</span>
+          <span className="login-logo-main">JAY <span style={{ color: 'var(--color-accent)' }}>GANGA</span></span>
         </div>
         <h1 className="login-title">Sign In</h1>
         {error && <div className="login-error" role="alert">{error}</div>}

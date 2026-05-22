@@ -26,8 +26,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="footer__brand">
             <div className="footer__logo">
-              <span className="footer__logo-main">JAY GANGA</span>
-              <span className="footer__logo-sub">Associates</span>
+              <span className="footer__logo-main">JAY <span style={{ color: 'var(--color-accent)' }}>GANGA</span></span>
             </div>
             <p className="footer__tagline">
               Architects of Engagement. Builders of Trust.
@@ -83,8 +82,8 @@ export default function Footer() {
         </div>
 
         <div className="footer__bottom">
-          <p>© {year} Jay Ganga Associates. All rights reserved.</p>
-          <p>Crafted with precision.</p>
+          <p>© {year} Jay <span style={{ color: 'var(--color-accent)' }}>Ganga</span> Associates. All rights reserved.</p>
+          <p>Developed by <a href="https://rturox.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)', fontWeight: 500 }}>rturox.com</a></p>
         </div>
       </div>
     </footer>

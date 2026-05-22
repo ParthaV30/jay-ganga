@@ -52,7 +52,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <button onClick={() => setIsMobileMenuOpen(true)} className="admin-hamburger">
           <Menu size={24} />
         </button>
-        <div className="admin-mobile-logo">JAY GANGA ADMIN</div>
+        <div className="admin-mobile-logo">JAY <span style={{ color: 'var(--color-accent)' }}>GANGA</span> ADMIN</div>
       </div>
 
       {/* Sidebar Overlay for Mobile */}
@@ -64,7 +64,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <aside className={`admin-sidebar ${isMobileMenuOpen ? 'admin-sidebar--open' : ''}`}>
         <div className="admin-sidebar__header">
           <div className="admin-sidebar__logo">
-            <Link href="/admin" className="admin-sidebar__logo-main">JAY GANGA</Link>
+            <Link href="/admin" className="admin-sidebar__logo-main">JAY <span style={{ color: 'var(--color-accent)' }}>GANGA</span></Link>
             <span className="admin-sidebar__logo-sub">Admin Panel</span>
           </div>
           <button onClick={() => setIsMobileMenuOpen(false)} className="admin-sidebar-close">
